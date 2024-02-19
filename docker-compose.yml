@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+        spring_app:
+                container_name: spring_app
+                build:
+                        context: .
+                        dockerfile: Dockerfile
+                depends_on:
+                        - database
+                ports:
+                        - "8080:8080"
+        database:
+                image: postgres:16-alpine
+                container_name: postgres-database
+                environment:
+                        POSTGRES_USER: admin
+                        POSTGRES_PASSWORD: admin
+                        POSTGRES_DB: barbi
+                ports:
+                        - "5432:5432"
+                volumes:
+                        - postgres_data:/var/lib/postgresql/data
+volumes:
+        postgres_data:
